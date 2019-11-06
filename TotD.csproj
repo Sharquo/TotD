@@ -45,8 +45,8 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="SadConsole, Version=8.8.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\SadConsole.8.9.0\lib\netstandard2.0\SadConsole.dll</HintPath>
+    <Reference Include="SadConsole, Version=8.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\SadConsole.8.9.1\lib\netstandard2.0\SadConsole.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -96,7 +96,11 @@
     <Folder Include=".git\refs\tags\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actor.cs" />
     <Compile Include="GameLoop.cs" />
+    <Compile Include="TileBase.cs" />
+    <Compile Include="TileFloor.cs" />
+    <Compile Include="TileWall.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
