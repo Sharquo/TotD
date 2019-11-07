@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="Actor.cs" />
     <Compile Include="GameLoop.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="TileBase.cs" />
     <Compile Include="TileFloor.cs" />
     <Compile Include="TileWall.cs" />

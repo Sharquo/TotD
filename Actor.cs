@@ -17,5 +17,25 @@ namespace TotD
             Animation.CurrentFrame[0].Background = background;
             Animation.CurrentFrame[0].Glyph = glyph;
         }
+
+        // Moves the actor by positionChange tiles in any X/Y direction.
+        public bool MoveBy(Point positionChange)
+        {
+            if (TotD.GameLoop.IsTileWalkable(Position + positionChange))
+            {
+                Position += positionChange;
+
+                return true;
+            }
+            else
+                return false;
+        }
+
+        // Moves the Actor to newPosition location.
+        public bool MoveTo(Point newPosition)
+        {
+            Position = newPosition;
+            return true;
+        }
     }
 }

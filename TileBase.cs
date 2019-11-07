@@ -8,8 +8,8 @@ namespace TotD
     {
 
         // Movement and LoS flags
-        protected bool IsBlockingMove;
-        protected bool IsBlockingLoS;
+        public bool IsBlockingMove;
+        public bool IsBlockingLoS;
 
         // Tile's name
         protected string Name;
