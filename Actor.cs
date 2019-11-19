@@ -21,10 +21,9 @@ namespace TotD
         // Moves the actor by positionChange tiles in any X/Y direction.
         public bool MoveBy(Point positionChange)
         {
-            if (TotD.GameLoop.IsTileWalkable(Position + positionChange))
+            if (GameLoop.World.CurrentMap.IsTileWalkable(Position + positionChange))
             {
                 Position += positionChange;
-
                 return true;
             }
             else
