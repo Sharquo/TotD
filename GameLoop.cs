@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using SadConsole.Components;
 using Microsoft.Xna.Framework.Graphics;
 using TotD.UserInterface;
+using TotD.Commands;
 
 namespace TotD
 {
@@ -17,6 +18,7 @@ namespace TotD
         // Managers.
         public static UIManager UIManager;
         public static World World;
+        public static CommandManager CommandManager;
 
         static void Main(string[] args)
         {
@@ -54,6 +56,9 @@ namespace TotD
 
             // Create consoles to use the World data.
             UIManager.Init();
+
+            // Instantiate a new CommandManager.
+            CommandManager = new CommandManager();
         }
     }
 }

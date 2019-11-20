@@ -2,6 +2,7 @@
 using SadConsole;
 using SadConsole.Controls;
 using System;
+using TotD.Entities;
 
 namespace TotD.UserInterface
 {
@@ -25,8 +26,8 @@ namespace TotD.UserInterface
         // Creates all child consoles to be managed.
         public void CreateConsoles()
         {
-            MapConsole = new SadConsole.ScrollingConsole(GameLoop.World.CurrentMap.Width, GameLoop.World.CurrentMap.Height, Global.FontDefault,
-                new Rectangle(0, 0, GameLoop.GameWidth, GameLoop.GameHeight), GameLoop.World.CurrentMap.Tiles);
+            // Temporarily create a console with *no* tile data that will later be replaced with map data
+            MapConsole = new ScrollingConsole(GameLoop.GameWidth, GameLoop.GameHeight);
         }
 
         // Creates a window that encloses a map console.
@@ -68,11 +69,47 @@ namespace TotD.UserInterface
             MapWindow.Show();
         }
 
+        // Adds the list of entities found in World.CurrentMap's Entities SpatialMap to the MapConsol.
+        private void SyncMapEntities(Map map)
+        {
+            // Removes all entities from the console first.
+            MapConsole.Children.Clear();
+
+            foreach (Entity entity in map.Entities.Items)
+            {
+                MapConsole.Children.Add(entity);
+            }
+
+            // Subscribe to the Entities ItemAdded listener, so we can keep our MapConsole entities in sync.
+            map.Entities.ItemAdded += OnMapEntityAdded;
+
+            map.Entities.ItemRemoved += OnMapEntityRemoved;
+        }
+
+        // Add an Entity to the MapConsole every time the Map's Entity collection changes.
+        public void OnMapEntityAdded(object sender, GoRogue.ItemEventArgs<Entity> args)
+        {
+            MapConsole.Children.Add(args.Item);
+        }
+
+        public void OnMapEntityRemoved(object sender, GoRogue.ItemEventArgs<Entity> args)
+        {
+            MapConsole.Children.Remove(args.Item);
+        }
+
+        // Loads a map into the MapConsole.
+        public void LoadMap(Map map)
+        {
+            MapConsole = new SadConsole.ScrollingConsole(GameLoop.World.CurrentMap.Width, GameLoop.World.CurrentMap.Height, Global.FontDefault, 
+                new Rectangle(0, 0, GameLoop.GameWidth, GameLoop.GameHeight), map.Tiles);
+
+            SyncMapEntities(map);
+        }
+
         // Initializes all windows and consoles.
         public void Init()
         {
             CreateConsoles();
-            CreateMapWindow(GameLoop.GameWidth / 2, GameLoop.GameHeight / 2, "Game Map");
 
             MessageLog = new MessageLogWindow(GameLoop.GameWidth / 2, GameLoop.GameHeight / 2, "Message Log");
             Children.Add(MessageLog);
@@ -94,6 +131,16 @@ namespace TotD.UserInterface
             MessageLog.Add("Testing 162");
             MessageLog.Add("Testing 16");
             MessageLog.Add("Testing Last");
+
+            // Load the map.
+            LoadMap(GameLoop.World.CurrentMap);
+
+            // Build the map.
+            CreateMapWindow(GameLoop.GameWidth / 2, GameLoop.GameHeight / 2, "Game Map");
+            UseMouse = true;
+
+            // Start the game with the camera focused on the player.
+            CenterOnActor(GameLoop.World.Player);
         }
 
         // This centres the viewport camera on an actor.
@@ -118,51 +165,51 @@ namespace TotD.UserInterface
             }
 
             // Keyboard movement for the player character: North
-            if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D8))
+            if (SadConsole.Global.KeyboardState.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D8))
             {
-                GameLoop.World.Player.MoveBy(new Point(0, -1));
+                GameLoop.CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, -1));
                 CenterOnActor(GameLoop.World.Player);
             }
             // Keyboard movement for the player character: Northeast
-            if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D9))
+            if (SadConsole.Global.KeyboardState.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D9))
             {
-                GameLoop.World.Player.MoveBy(new Point(1, -1));
+                GameLoop.CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, -1));
                 CenterOnActor(GameLoop.World.Player);
             }
             // Keyboard movement for the player character: East
-            if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D6))
+            if (SadConsole.Global.KeyboardState.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D6))
             {
-                GameLoop.World.Player.MoveBy(new Point(1, 0));
+                GameLoop.CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 0));
                 CenterOnActor(GameLoop.World.Player);
             }
             // Keyboard movement for the player character: Southeast
-            if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D3))
+            if (SadConsole.Global.KeyboardState.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D3))
             {
-                GameLoop.World.Player.MoveBy(new Point(1, 1));
+                GameLoop.CommandManager.MoveActorBy(GameLoop.World.Player, new Point(1, 1));
                 CenterOnActor(GameLoop.World.Player);
             }
             // Keyboard movement for the player character: South
-            if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D2))
+            if (SadConsole.Global.KeyboardState.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D2))
             {
-                GameLoop.World.Player.MoveBy(new Point(0, 1));
+                GameLoop.CommandManager.MoveActorBy(GameLoop.World.Player, new Point(0, 1));
                 CenterOnActor(GameLoop.World.Player);
             }
             // Keyboard movement for the player character: Southwest
-            if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D1))
+            if (SadConsole.Global.KeyboardState.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D1))
             {
-                GameLoop.World.Player.MoveBy(new Point(-1, 1));
+                GameLoop.CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 1));
                 CenterOnActor(GameLoop.World.Player);
             }
             // Keyboard movement for the player character: West
-            if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D4))
+            if (SadConsole.Global.KeyboardState.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D4))
             {
-                GameLoop.World.Player.MoveBy(new Point(-1, 0));
+                GameLoop.CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, 0));
                 CenterOnActor(GameLoop.World.Player);
             }
             // Keyboard movement for the player character: Northwest
-            if (SadConsole.Global.KeyboardState.IsKeyReleased(Microsoft.Xna.Framework.Input.Keys.D7))
+            if (SadConsole.Global.KeyboardState.IsKeyPressed(Microsoft.Xna.Framework.Input.Keys.D7))
             {
-                GameLoop.World.Player.MoveBy(new Point(-1, -1));
+                GameLoop.CommandManager.MoveActorBy(GameLoop.World.Player, new Point(-1, -1));
                 CenterOnActor(GameLoop.World.Player);
             }
         }

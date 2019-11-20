@@ -1,6 +1,7 @@
 ﻿using System;
 using SadConsole.Components;
 using Microsoft.Xna.Framework;
+using TotD.Entities;
 
 namespace TotD
 {
@@ -44,9 +45,17 @@ namespace TotD
         private void CreatePlayer()
         {
             Player = new Player(Color.Yellow, Color.Transparent);
-            Player.Position = new Point(5, 5);
 
-            // Add the ViewPort sync Component to the player
+            // Place the player on the first non-movement-blocking tile on the map.
+            for (int i = 0; i < CurrentMap.Tiles.Length; i++)
+            {
+                if (!CurrentMap.Tiles[i].IsBlockingMove)
+                {
+                    // Set the player's position to the index of the current map position.
+                    Player.Position = SadConsole.Helpers.GetPointFromIndex(i, CurrentMap.Width);
+                }
+            }
+            // Add the ViewPort sync component to the player entity.
             Player.Components.Add(new EntityViewSyncComponent());
         }
     }

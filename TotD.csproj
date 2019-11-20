@@ -38,12 +38,19 @@
     <RootNamespace>TotD</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GoRogue, Version=2.5.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\GoRogue.2.5.1\lib\netstandard2.0\GoRogue.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MonoGame.Framework, Version=3.7.1.189, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MonoGame.Framework.DesktopGL.3.7.1.189\lib\net45\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="netstandard" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Priority Queue, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\OptimizedPriorityQueue.4.2.0\lib\net45\Priority Queue.dll</HintPath>
     </Reference>
     <Reference Include="SadConsole, Version=8.9.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\SadConsole.8.9.1\lib\netstandard2.0\SadConsole.dll</HintPath>
@@ -54,6 +61,9 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="Troschuetz.Random, Version=0.0.0.0, Culture=neutral, PublicKeyToken=2f204b7110a52060, processorArchitecture=MSIL">
+      <HintPath>packages\Troschuetz.Random.4.3.1\lib\net472\Troschuetz.Random.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -96,11 +106,13 @@
     <Folder Include=".git\refs\tags\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actor.cs" />
+    <Compile Include="Entities\Actor.cs" />
+    <Compile Include="Commands\CommandManager.cs" />
+    <Compile Include="Entities\Entity.cs" />
     <Compile Include="GameLoop.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapGenerator.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Entities\Player.cs" />
     <Compile Include="TileBase.cs" />
     <Compile Include="TileFloor.cs" />
     <Compile Include="TileWall.cs" />

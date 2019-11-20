@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace TotD
+namespace TotD.Entities
 {
     public abstract class Actor : SadConsole.Entities.Entity
     {
