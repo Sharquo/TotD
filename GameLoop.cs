@@ -4,6 +4,7 @@ using Console = SadConsole.Console;
 using Microsoft.Xna.Framework;
 using SadConsole.Components;
 using Microsoft.Xna.Framework.Graphics;
+using TotD.UserInterface;
 
 namespace TotD
 {

@@ -104,7 +104,8 @@
     <Compile Include="TileBase.cs" />
     <Compile Include="TileFloor.cs" />
     <Compile Include="TileWall.cs" />
-    <Compile Include="UIManager.cs" />
+    <Compile Include="UserInterface\MessageLogWindow.cs" />
+    <Compile Include="UserInterface\UIManager.cs" />
     <Compile Include="World.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />

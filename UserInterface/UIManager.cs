@@ -3,7 +3,7 @@ using SadConsole;
 using SadConsole.Controls;
 using System;
 
-namespace TotD
+namespace TotD.UserInterface
 {
     // Creates, holds, and destroys all consoles used in the game.
     public class UIManager : ContainerConsole
@@ -11,6 +11,8 @@ namespace TotD
         public ScrollingConsole MapConsole;
 
         public Window MapWindow;
+
+        public MessageLogWindow MessageLog;
 
         public UIManager()
         {
@@ -71,6 +73,27 @@ namespace TotD
         {
             CreateConsoles();
             CreateMapWindow(GameLoop.GameWidth / 2, GameLoop.GameHeight / 2, "Game Map");
+
+            MessageLog = new MessageLogWindow(GameLoop.GameWidth / 2, GameLoop.GameHeight / 2, "Message Log");
+            Children.Add(MessageLog);
+            MessageLog.Show();
+            MessageLog.Position = new Point(0, GameLoop.GameHeight / 2);
+
+            MessageLog.Add("Testing 123");
+            MessageLog.Add("Testing 1224");
+            MessageLog.Add("Testing 123");
+            MessageLog.Add("Testing 12543");
+            MessageLog.Add("Testing 123");
+            MessageLog.Add("Testing 1253");
+            MessageLog.Add("Testing 1212");
+            MessageLog.Add("Testing 1");
+            MessageLog.Add("Testing");
+            MessageLog.Add("Testing 122");
+            MessageLog.Add("Testing 51");
+            MessageLog.Add("Testing");
+            MessageLog.Add("Testing 162");
+            MessageLog.Add("Testing 16");
+            MessageLog.Add("Testing Last");
         }
 
         // This centres the viewport camera on an actor.
