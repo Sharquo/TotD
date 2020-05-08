@@ -109,6 +109,7 @@
     <Compile Include="Entities\Actor.cs" />
     <Compile Include="Commands\CommandManager.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Monster.cs" />
     <Compile Include="GameLoop.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapGenerator.cs" />
